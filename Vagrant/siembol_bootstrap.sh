@@ -67,4 +67,8 @@ echo "Checking status by running: 'kubectl get pods -n siembol'"
 kubectl get pods -n siembol
 echo "************************************************************"
 
+helm install siembol deployment/helm-k8s/ -f deployment/helm-k8s/values.yaml -n=siembol
+
+
+
 EOF
