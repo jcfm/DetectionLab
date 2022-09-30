@@ -24,7 +24,8 @@ If (!(Test-Path $ProfilePath)) {
 Try {
   curl -userAgent "DetectionLab-$box" "https://ping.detectionlab.network/$box" -UseBasicParsing | out-null
 } Catch {
-  Write-Host "Unable to connect to ping.detectionlab.network"
+  Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Unable to connect to ping.detectionlab.network"
+  Write-Host $_.Exception.Message
 }
 
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Disabling IPv6 on all network adatpers..."
@@ -54,6 +55,7 @@ if ($env:COMPUTERNAME -imatch 'vagrant') {
     reg import "c:\vagrant\resources\windows\TaskManager.reg" 2>&1 | out-null
   }
 
+  Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) My hostname is $env:COMPUTERNAME"
   if ($env:COMPUTERNAME -imatch 'dc') {
     . c:\vagrant\scripts\create-domain.ps1 192.168.56.102
   } else {
